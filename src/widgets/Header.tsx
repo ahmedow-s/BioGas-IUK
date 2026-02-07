@@ -34,7 +34,7 @@ export function Header() {
                             <h1 className="text-[16px] font-regular  mt-1">{user.name}</h1>
                             <p className="text-[12px] font-regular ">{user.role}</p>
                         </div>
-                        <div className="w-[24px] h-[24px]">
+                        <div className="w-[24px] h-[24px] z-10">
                             <img src="/icons/arrow-down.svg" onClick={() => setActiveMenu(activeMenu === "profile" ? null : "profile")} alt="arrow down" className=""/>    
                             {activeMenu === "profile" && (
                                 <div className="relative right-30 top-[15px] bg-white rounded-b-lg shadow-[0_4px_12px_rgba(0,0,0,0.08)]  w-[150px]">
