@@ -10,8 +10,10 @@ export function Header({ onBurgerClick }: { onBurgerClick?: () => void }) {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   const authUser = useSelector((state: RootState) => state.auth.user)
-  const profileImage = (authUser as any)?.profileImage ?? '/img/profile.jpg'
-  const user = { name: authUser?.name ?? 'John Doe', role: authUser?.role ?? 'Администратор', profileImage }
+  console.log('Header authUser:', authUser)
+  
+  const profileImage =  '/img/profile1.jpg'
+  const user = { name: authUser?.name || 'Асанов Асан', role: authUser?.role || 'Администратор', profileImage }
 
   const handleProfileClick = () => {
     console.log("Профиль или выход");

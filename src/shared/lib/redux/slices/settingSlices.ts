@@ -9,8 +9,7 @@ export interface SettingsState {
   language: Language;
   notificationsEnabled: boolean;
   emailNotifications: boolean;
-  autoLogoutMinutes: number; // 0 = никогда
-  // можно добавить: timezone, currency и т.д.
+  autoLogoutMinutes: number; 
 }
 
 const initialState: SettingsState = {

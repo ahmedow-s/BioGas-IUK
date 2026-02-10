@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import type { RootState } from '../shared/lib/redux/store';
-import { updateUser } from '../shared/lib/redux/slices/authSlice';
+// import { updateUser } from '../shared/lib/redux/slices/authSlice';
 import { User, Mail, Phone, Calendar, Clock, Shield, Edit, Save, X } from 'lucide-react';
 
 export default function Profile() {
   const dispatch = useDispatch();
-  const { user: reduxUser, isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const { user: reduxUser, } = useSelector((state: RootState) => state.auth);
 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
@@ -18,8 +18,8 @@ export default function Profile() {
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      const parsed = JSON.parse(storedUser);
-      dispatch(updateUser(parsed)); 
+      // const parsed = JSON.parse(storedUser);
+      // dispatch(updateUser(parsed)); 
     }
   }, [dispatch]);
 
@@ -35,7 +35,7 @@ export default function Profile() {
 
   const currentUser = reduxUser; 
 
-  if (isAuthenticated === false) {
+  if (!currentUser) {
     return (
       <div className="flex justify-center items-center min-h-[60vh]">
         <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-green-600" />
@@ -56,10 +56,10 @@ export default function Profile() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSave = () => {
-    dispatch(updateUser(formData));
-    setIsEditing(false);
-  };
+  // const handleSave = () => {
+  //   dispatch(updateUser(formData));
+  //   setIsEditing(false);
+  // };
 
   const handleCancel = () => {
     setFormData({
@@ -158,7 +158,7 @@ export default function Profile() {
                     <X size={18} /> Отмена
                   </button>
                   <button
-                    onClick={handleSave}
+                    // onClick={handleSave}
                     className="px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition flex items-center gap-2 shadow-sm"
                   >
                     <Save size={18} /> Сохранить изменения

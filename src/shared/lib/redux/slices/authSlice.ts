@@ -16,17 +16,22 @@ export interface AuthState {
   isAuthenticated: boolean;
 }
 
-const getInitialToken = () => (typeof window !== 'undefined' ? localStorage.getItem('token') : null);
+const getInitialToken = () =>
+  typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+
 const getInitialUser = () => {
   if (typeof window === 'undefined') return null;
   const stored = localStorage.getItem('user');
   return stored ? (JSON.parse(stored) as User) : null;
 };
 
+const token = getInitialToken();
+const user = getInitialUser();
+
 const initialState: AuthState = {
-  token: getInitialToken(),
-  user: getInitialUser(),
-  isAuthenticated: !!(getInitialToken() && getInitialUser()),
+  token,
+  user,
+  isAuthenticated: !!(token && user),
 };
 
 const authSlice = createSlice({
@@ -35,58 +40,26 @@ const authSlice = createSlice({
   reducers: {
     setToken: (
       state,
-      action: PayloadAction<{
-        token: string;
-        user: User;
-      }>
+      action: PayloadAction<{ token: string; user: User }>
     ) => {
       state.token = action.payload.token;
-      state.user = action.payload.user;
       state.isAuthenticated = true;
+      state.user = action.payload.user;
 
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('token', action.payload.token);
-        localStorage.setItem('user', JSON.stringify(action.payload.user));
-      }
-    },
-
-    updateUser: (state, action: PayloadAction<Partial<User>>) => {
-      if (state.user) {
-        state.user = {
-          ...state.user,
-          ...action.payload,
-          lastLogin: new Date().toISOString(),
-        };
-
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('user', JSON.stringify(state.user));
-        }
-      }
+      localStorage.setItem('token', action.payload.token);
+      localStorage.setItem('user', JSON.stringify(action.payload.user));
     },
 
     clearToken: (state) => {
       state.token = null;
-      state.user = null;
       state.isAuthenticated = false;
-
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-      }
-    },
-
-    forceLogout: (state) => {
-      state.token = null;
       state.user = null;
-      state.isAuthenticated = false;
 
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-      }
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
     },
   },
 });
 
-export const { setToken, updateUser, clearToken, forceLogout } = authSlice.actions;
+export const { setToken, clearToken } = authSlice.actions;
 export default authSlice.reducer;

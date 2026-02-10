@@ -32,6 +32,8 @@ export default function Input({
             <input
                 disabled={disabled}
                 className={className}
+                value={value}
+                onChange={onChange}
                 {...props}
             />
 

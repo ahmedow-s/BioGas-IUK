@@ -5,7 +5,7 @@ import {
   markAllAsRead,
   setFilter,
 } from '../shared/lib/redux/slices/notificationSlice';
-import { Bell, Check, CheckCheck, Clock, AlertCircle, Search } from 'lucide-react';
+import { Bell, Check, CheckCheck, Clock, AlertCircle } from 'lucide-react';
 import type { Notification } from '../shared/lib/redux/slices/notificationSlice';
 import SearchableSelect from '../shared/ui/Select';
 

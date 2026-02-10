@@ -1,4 +1,3 @@
-// ProtectedLayout.tsx
 import { useState } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { Sidebar } from '../../widgets/Sidebar';
@@ -9,10 +8,19 @@ import BreadCrumbs from '../../shared/ui/BreadCrumbs';
 
 export default function ProtectedLayout() {
   const token = useSelector((state: RootState) => state.auth.token);
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const user = useSelector((state: RootState) => state.auth.user);
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const isHomePage = location.pathname === '/' || location.pathname === '/home';
+  const isHomePage =
+    location.pathname === '/' || location.pathname === '/home';
+
+  console.log('ProtectedLayout:', { token, isAuthenticated, user });
+
+  if (!token || !isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
 
   const onOpenMobileMenu = () => {
     setMobileOpen(true);
@@ -24,10 +32,8 @@ export default function ProtectedLayout() {
     document.body.style.overflow = 'auto';
   };
 
-  if (!token) return <Navigate to="/login" replace />;
-
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen">
       <Header onBurgerClick={onOpenMobileMenu} />
 
       <div className="flex">
