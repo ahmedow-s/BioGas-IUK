@@ -6,7 +6,7 @@ import { clearToken } from '../shared/lib/redux/slices/authSlice'
 import type { AppDispatch, RootState } from '../shared/lib/redux/store'
 import { useNavigate } from 'react-router-dom'
 
-export function Header({ onBurgerClick }: { onBurgerClick?: () => void }) {
+export function Header({ onBurgerClick, onCloseMobile }: { onBurgerClick?: () => void; onCloseMobile?: () => void }) {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
 
   const authUser = useSelector((state: RootState) => state.auth.user)

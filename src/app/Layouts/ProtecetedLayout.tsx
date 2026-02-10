@@ -32,9 +32,17 @@ export default function ProtectedLayout() {
     document.body.style.overflow = 'auto';
   };
 
+  const onToggleMobileMenu = () => {
+    if (mobileOpen) {
+      onCloseMobileMenu();
+    } else {
+      onOpenMobileMenu();
+    }
+  };
+
   return (
     <div className="min-h-screen">
-      <Header onBurgerClick={onOpenMobileMenu} />
+      <Header onBurgerClick={onToggleMobileMenu} onCloseMobile={onCloseMobileMenu} />
 
       <div className="flex">
         <Sidebar

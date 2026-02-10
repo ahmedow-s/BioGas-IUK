@@ -84,9 +84,9 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
             </aside>
 
             <div className={`fixed inset-0 z-30 lg:hidden transition-transform duration-300 ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
-                <div className="fixed inset-0 top-[87px]" onClick={onClose} />
+                <div className="fixed inset-0 top-[87px] bg-black/50" onClick={onClose} />
 
-                <aside className="fixed top-[87px] left-0 bottom-0 w-full bg-white p-4 z-40">
+                <aside className="fixed top-[87px] left-0 bottom-0 w-64 bg-white p-4 z-40 shadow-lg">
                     <nav className="space-y-1">
                         {menuItems.map((item) => {
                             const Icon = item.icon as any
