@@ -7,7 +7,7 @@ import {
 } from '../shared/lib/redux/slices/notificationSlice';
 import { Bell, Check, CheckCheck, Clock, AlertCircle } from 'lucide-react';
 import type { Notification } from '../shared/lib/redux/slices/notificationSlice';
-import SearchableSelect from '../shared/ui/Select';
+import Select from '../shared/ui/Select';
 
 export default function Notifications() {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ export default function Notifications() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen  py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
           <div className="flex items-center gap-3">
@@ -45,7 +45,7 @@ export default function Notifications() {
           </div>
 
           <div className="flex flex-wrap gap-3">
-            <SearchableSelect
+            <Select
               value={filter}
               onChange={(value) => dispatch(setFilter(value as 'all' | 'unread' | 'read'))}
               className="px-4 py-2 rounded-lg border border-gray-300 bg-white text-sm focus:border-green-500 focus:ring-green-200"

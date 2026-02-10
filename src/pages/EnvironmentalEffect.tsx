@@ -6,86 +6,130 @@ import MiniEcoCards from '../entities/ecology/ui/MiniEcoCards';
 export default function EcoImpact() {
   const { metrics, wasteComposition } = useSelector((state: RootState) => state.environmentalEffect);
 
-  const COLORS = ['#1E7F43','#18CF5E','#A3E635','#77B510',   ];
+  const COLORS = ['#1E7F43', '#18CF5E', '#A3E635', '#77B510'];
 
   return (
-    <div className="p-6 lg:p-8 ">
-      <div className='mb-10'>
+    <div className="p-5 sm:p-6 lg:p-8 min-h-screen ">
+      <div className="mb-8 sm:mb-10">
         <MiniEcoCards />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        <div className="bg-white p-6">
-          <h3 className="text-xl font-semibold text-gray-800 mb-6 text-center lg:text-left mb-10">Состав отходов</h3>
-          <div className="h-64 flex items-center justify-center lg:flex-row flex-col gap-6">
-                <PieChartWithCustomizedLabel />
-                <div>
-                    <ul className="mt-4 flex flex-col gap-2">
-                        {wasteComposition.map((item, index) => (
-                            <li key={item.id ?? index} className="flex items-center gap-2">
-                                <div style={{ backgroundColor: COLORS[index % COLORS.length] }} className="w-4 h-4 "></div>
-                                <span className="text-gray-700">•  {item.name}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-          </div>
-        </div>
 
-        <div className="bg-white p-6">
-          <h3 className="text-xl font-semibold text-gray-800 mb-6 text-center">Источник энергии</h3>
-          <div className="h-64 flex items-center justify-center">
-                   <PieChartWithCustomizedLabel />
-                    <div>
-                    <ul className="mt-4 flex flex-col gap-2">
-                        {wasteComposition.map((item, index) => (
-                            <li key={item.id ?? index} className="flex items-center gap-2">
-                                <div style={{ backgroundColor: COLORS[index % COLORS.length] }} className="w-4 h-4 "></div>
-                                <span className="text-gray-700">•  {item.name}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-          </div>
-        </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-8 lg:mb-10">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 sm:p-6">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-5 sm:mb-6 text-center sm:text-left">
+            Состав отходов
+          </h3>
 
-        <div className="col-span-1 lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white max-w-[492px] w-full h-[475px] rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="p-6  flex flex-col">
-            <div className='flex gap-30'>
-              <h3 className="text-[20px] font-bold mb-3">Переработка отходов</h3>
-              <div className='relative w-[100px] h-[40px] '>
-                <img src="/icons/recycling.svg" alt="Переработка отходов" className="w-[66px] h-[66px] mx-auto" />
-              </div>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 min-h-[260px] sm:min-h-[280px]">
+            <div className="w-full max-w-[260px] sm:max-w-[300px] aspect-square">
+              <PieChartWithCustomizedLabel />
             </div>
-              <p className="text-3xl font-bold text-[#1E7F43] mb-2">50.000 тон/в год</p>
-              <p className="text-gray-700 text-[16px] mb-4">
+
+            <div className="w-full max-w-sm">
+              <ul className="flex flex-col gap-2.5 sm:gap-3 text-sm sm:text-base">
+                {wasteComposition.map((item, index) => (
+                  <li key={item.id ?? index} className="flex items-center gap-3">
+                    <div
+                      style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                      className="w-4 h-4 sm:w-5 sm:h-5 rounded-sm flex-shrink-0"
+                    />
+                    <span className="text-gray-700">{item.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 sm:p-6">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-5 sm:mb-6 text-center sm:text-left">
+            Источник энергии
+          </h3>
+
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8 min-h-[260px] sm:min-h-[280px]">
+            <div className="w-full max-w-[260px] sm:max-w-[300px] aspect-square">
+              <PieChartWithCustomizedLabel />
+            </div>
+
+            <div className="w-full max-w-sm">
+              <ul className="flex flex-col gap-2.5 sm:gap-3 text-sm sm:text-base">
+                {wasteComposition.map((item, index) => (
+                  <li key={item.id ?? index} className="flex items-center gap-3">
+                    <div
+                      style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                      className="w-4 h-4 sm:w-5 sm:h-5 rounded-sm flex-shrink-0"
+                    />
+                    <span className="text-gray-700">{item.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-span-1 lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-auto min-h-[420px] sm:min-h-[460px]">
+            <div className="p-5 sm:p-6 flex flex-col gap-3 sm:gap-4">
+              <div className="flex items-start sm:items-center justify-between gap-4">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-800">
+                  Переработка отходов
+                </h3>
+                <img
+                  src="/icons/recycling.svg"
+                  alt="Переработка"
+                  className="w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0"
+                />
+              </div>
+
+              <p className="text-2xl sm:text-3xl font-bold text-[#1E7F43]">
+                50 000 тон/в год
+              </p>
+
+              <p className="text-gray-600 text-sm sm:text-base">
                 Эффективная утилизация навоза и сельхозотходов без вреда для почвы
               </p>
             </div>
-            <div>
-                <img src="/img/ecology.jpg" alt="" className="w-full h-full object-cover" />
+
+            <div className="mt-auto flex-1 min-h-[180px] sm:min-h-[220px]">
+              <img
+                src="/img/ecology.jpg"
+                alt="Переработка отходов"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 
-          <div className="bg-white max-w-[492px] w-full h-[475px] rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-            <div className="p-6">
-            <div className='flex gap-20'>
-              <h3 className="text-[20px] font-bold mb-3">Снижение выбросов CO₂</h3>
-              <div className='relative w-[100px] h-[40px] '>
-                <img src="/icons/recycling.svg" alt="Переработка отходов" className="w-[66px] h-[66px] mx-auto" />
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden flex flex-col h-auto min-h-[420px] sm:min-h-[460px]">
+            <div className="p-5 sm:p-6 flex flex-col gap-3 sm:gap-4">
+              <div className="flex items-start sm:items-center justify-between gap-4">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-800">
+                  Снижение выбросов CO₂
+                </h3>
+                <img
+                  src="/icons/recycling.svg"
+                  alt="Снижение CO₂"
+                  className="w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0"
+                />
               </div>
-            </div>
-              <p className="text-3xl font-bold text-green-700 mb-2">{Math.round(metrics[0]?.value ?? 850)} кг</p>
-              <p className="text-gray-700 mb-4">
+
+              <p className="text-2xl sm:text-3xl font-bold text-green-700">
+                {Math.round(metrics[0]?.value ?? 850)} кг
+              </p>
+
+              <p className="text-gray-600 text-sm sm:text-base">
                 Сокращение выбросов парниковых газов в атмосферу
               </p>
             </div>
-            <div className='flex mt-6'>
-                <img src="/img/ecology.jpg" alt="" />
+
+            <div className="mt-auto flex-1 min-h-[180px] sm:min-h-[220px] max-h-[320px]">
+              <img
+                src="/img/ecology.jpg"
+                alt="Снижение выбросов"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

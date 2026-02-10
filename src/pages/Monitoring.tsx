@@ -12,7 +12,7 @@ export default function MonitoringDashboard() {
   if (!reactor) return null;
 
   return (
-    <div className="p-6 lg:p-8 bg-gray-50 min-h-screen">
+    <div className="p-6 lg:p-8  min-h-screen">
       <div className="mb-6 flex gap-3 flex-wrap">
         {reactors.map(r => (
           <button

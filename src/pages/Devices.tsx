@@ -25,12 +25,10 @@ export default function Devices() {
 
   const handleViewDevice = (e: React.MouseEvent) => {
     e.preventDefault();
-    // TODO: Implement view device page
   };
 
   const handleDownloadDevice = (e: React.MouseEvent) => {
     e.preventDefault();
-    // TODO: Implement download device data
   };
 
   const getStatusColor = (status: string) => {

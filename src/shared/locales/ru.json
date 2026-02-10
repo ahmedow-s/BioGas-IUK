@@ -1,0 +1,37 @@
+{
+  "settings": {
+    "title": "Настройки",
+    "description": "Управление внешним видом, уведомлениями и безопасностью",
+    "appearance": "Внешний вид",
+    "theme": "Тема оформления",
+    "themeDescription": "Светлая, тёмная или как в системе",
+    "themeLight": "Светлая",
+    "themeDark": "Тёмная",
+    "themeSystem": "Системная",
+    "language": "Язык интерфейса",
+    "languageDescription": "Язык приложения",
+    "languageRu": "Русский",
+    "languageEn": "English",
+    "languageKg": "Кыргызча",
+    "notifications": "Уведомления",
+    "pushNotifications": "Push-уведомления",
+    "pushNotificationsDesc": "Получать уведомления на устройство",
+    "emailNotifications": "Email-уведомления",
+    "emailNotificationsDesc": "Важные оповещения на почту",
+    "security": "Безопасность",
+    "autoLogout": "Автоматический выход из системы",
+    "autoLogoutDesc": "Выход после неактивности (в минутах, 0 = никогда)",
+    "minutes": "минут",
+    "cancel": "Отмена",
+    "save": "Сохранить изменения"
+  },
+  "common": {
+    "home": "Главная",
+    "devices": "Устройства",
+    "monitoring": "Мониторинг",
+    "environmentalEffect": "Экологический эффект",
+    "notifications": "Уведомления",
+    "profile": "Профиль",
+    "logout": "Выход"
+  }
+}

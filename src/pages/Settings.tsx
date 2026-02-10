@@ -8,6 +8,9 @@ import {
   setAutoLogoutMinutes,
 } from '../shared/lib/redux/slices/settingSlices';
 import { useState } from 'react';
+import Button from '../shared/ui/Button';
+import Select from '../shared/ui/Select';
+import { useTranslation } from 'react-i18next';
 
 const Toggle = ({
   checked,
@@ -54,16 +57,8 @@ const Toggle = ({
 export default function Settings() {
   const dispatch = useDispatch();
   const settings = useSelector((state: RootState) => state.settings);
-
+  const { t } = useTranslation();
   const [logoutMinutes, setLogoutMinutes] = useState(settings.autoLogoutMinutes);
-
-  const handleThemeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setTheme(e.target.value as 'light' | 'dark' | 'system'));
-  };
-
-  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setLanguage(e.target.value as 'ru' | 'en' | 'kg'));
-  };
 
   const handleLogoutMinutesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number(e.target.value);
@@ -74,103 +69,102 @@ export default function Settings() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen  px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-3xl">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Настройки</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('settings.title')}</h1>
         <p className="text-gray-600 mb-10">
-          Управление внешним видом, уведомлениями и безопасностью
+          {t('settings.description')}
         </p>
 
-        {/* 1. Внешний вид */}
-        <div className="bg-white shadow rounded-xl overflow-hidden mb-8">
+        <div className="bg-white shadow rounded-xl  mb-8">
           <div className="px-6 py-5 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-800">Внешний вид</h2>
+            <h2 className="text-xl font-semibold text-gray-800">{t('settings.appearance')}</h2>
           </div>
 
           <div className="divide-y divide-gray-200">
-            {/* Тема */}
             <div className="px-6 py-5 flex items-center justify-between">
               <div>
-                <div className="font-medium text-gray-900">Тема оформления</div>
+                <div className="font-medium text-gray-900">{t('settings.theme')}</div>
                 <div className="text-sm text-gray-500 mt-1">
-                  Светлая, тёмная или как в системе
+                  {t('settings.themeDescription')}
                 </div>
               </div>
-              <select
+              <Select
                 value={settings.theme}
-                onChange={handleThemeChange}
+                onChange={(value) => dispatch(setTheme(value as 'light' | 'dark' | 'system'))}
                 className="
                   rounded-lg border border-gray-300 bg-white px-3 py-2 
                   text-gray-700 focus:border-green-500 focus:ring-2 focus:ring-green-200 
                   outline-none transition
                 "
-              >
-                <option value="light">Светлая</option>
-                <option value="dark">Тёмная</option>
-                <option value="system">Системная</option>
-              </select>
+                options={[
+                  { value: 'light', label: t('settings.themeLight') },
+                  { value: 'dark', label: t('settings.themeDark') },
+                  { value: 'system', label: t('settings.themeSystem') },
+                ]}
+              />
+              
+               
             </div>
 
-            {/* Язык */}
             <div className="px-6 py-5 flex items-center justify-between">
               <div>
-                <div className="font-medium text-gray-900">Язык интерфейса</div>
+                <div className="font-medium text-gray-900">{t('settings.language')}</div>
                 <div className="text-sm text-gray-500 mt-1">
-                  Язык приложения
+                  {t('settings.languageDescription')}
                 </div>
               </div>
-              <select
+              <Select
                 value={settings.language}
-                onChange={handleLanguageChange}
+                onChange={(value) => dispatch(setLanguage(value as 'ru' | 'en' | 'kg'))}
                 className="
                   rounded-lg border border-gray-300 bg-white px-3 py-2 
                   text-gray-700 focus:border-green-500 focus:ring-2 focus:ring-green-200 
                   outline-none transition
                 "
-              >
-                <option value="ru">Русский</option>
-                <option value="en">English</option>
-                <option value="kg">Кыргызча</option>
-              </select>
+                options={[
+                  { value: 'ru', label: t('settings.languageRu') },
+                  { value: 'en', label: t('settings.languageEn') },
+                  { value: 'kg', label: t('settings.languageKg') },
+                ]}
+              />
             </div>
           </div>
         </div>
 
-        {/* 2. Уведомления */}
         <div className="bg-white shadow rounded-xl overflow-hidden mb-8">
           <div className="px-6 py-5 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-800">Уведомления</h2>
+            <h2 className="text-xl font-semibold text-gray-800">{t('settings.notifications')}</h2>
           </div>
 
           <div className="divide-y divide-gray-200">
             <Toggle
               checked={settings.notificationsEnabled}
               onChange={() => dispatch(toggleNotifications())}
-              label="Push-уведомления"
-              description="Получать уведомления на устройство"
+              label={t('settings.pushNotifications')}
+              description={t('settings.pushNotificationsDesc')}
             />
 
             <Toggle
               checked={settings.emailNotifications}
               onChange={() => dispatch(toggleEmailNotifications())}
-              label="Email-уведомления"
-              description="Важные оповещения на почту"
+              label={t('settings.emailNotifications')}
+              description={t('settings.emailNotificationsDesc')}
             />
           </div>
         </div>
 
-        {/* 3. Безопасность */}
         <div className="bg-white shadow rounded-xl overflow-hidden mb-8">
           <div className="px-6 py-5 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-800">Безопасность</h2>
+            <h2 className="text-xl font-semibold text-gray-800">{t('settings.security')}</h2>
           </div>
 
           <div className="px-6 py-6">
             <label className="block text-gray-900 font-medium mb-2">
-              Автоматический выход из системы
+              {t('settings.autoLogout')}
             </label>
             <p className="text-sm text-gray-500 mb-4">
-              Выход после неактивности (в минутах, 0 = никогда)
+              {t('settings.autoLogoutDesc')}
             </p>
 
             <div className="flex items-center">
@@ -185,31 +179,30 @@ export default function Settings() {
                   outline-none transition
                 "
               />
-              <span className="ml-3 text-gray-600 text-sm">минут</span>
+              <span className="ml-3 text-gray-600 text-sm">{t('settings.minutes')}</span>
             </div>
           </div>
         </div>
 
-        {/* Кнопки действий */}
         <div className="flex justify-end gap-4">
-          <button
+          <Button
             type="button"
             className="
               px-6 py-2.5 border border-gray-300 rounded-lg 
               text-gray-700 hover:bg-gray-50 transition-colors
             "
           >
-            Отмена
-          </button>
-          <button
+            {t('settings.cancel')}
+          </Button>
+          <Button
             type="button"
             className="
               px-6 py-2.5 bg-green-600 text-white rounded-lg 
               hover:bg-green-700 transition-colors font-medium
             "
           >
-            Сохранить изменения
-          </button>
+            {t('settings.save')}
+          </Button>
         </div>
       </div>
     </div>

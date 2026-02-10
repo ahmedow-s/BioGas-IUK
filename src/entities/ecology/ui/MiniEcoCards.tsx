@@ -2,10 +2,10 @@ import { useSelector } from 'react-redux';
 import type { RootState } from '../../../shared/lib/redux/store';
 
 export default function MiniEcoCards() {
-  const cards = useSelector((state: RootState) => state.home.cards);
+  const cards = useSelector((state: RootState) => state.environmentalEffect.metrics);
 
   return (
-    <div className="flex flex-wrap gap-12">
+    <div className="flex flex-wrap gap-12 md:items-center justify-center">
       {cards.map((card) => (
         <div
           key={card.id}

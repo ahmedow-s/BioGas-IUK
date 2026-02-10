@@ -12,9 +12,18 @@ export interface SettingsState {
   autoLogoutMinutes: number; 
 }
 
+const readLocal = <T,>(key: string, fallback: T) => {
+  try {
+    const v = localStorage.getItem(key);
+    return (v as unknown as T) || fallback;
+  } catch (e) {
+    return fallback;
+  }
+};
+
 const initialState: SettingsState = {
-  theme: 'system',
-  language: 'ru',
+  theme: readLocal<Theme>('theme', 'system'),
+  language: readLocal<Language>('language', 'ru'),
   notificationsEnabled: true,
   emailNotifications: true,
   autoLogoutMinutes: 30,
@@ -26,10 +35,19 @@ const settingsSlice = createSlice({
   reducers: {
     setTheme: (state, action: PayloadAction<Theme>) => {
       state.theme = action.payload;
-      // здесь можно localStorage.setItem('theme', action.payload);
+      try {
+        localStorage.setItem('theme', action.payload);
+      } catch (e) {
+        // ignore
+      }
     },
     setLanguage: (state, action: PayloadAction<Language>) => {
       state.language = action.payload;
+      try {
+        localStorage.setItem('language', action.payload);
+      } catch (e) {
+        // ignore
+      }
     },
     toggleNotifications: (state) => {
       state.notificationsEnabled = !state.notificationsEnabled;

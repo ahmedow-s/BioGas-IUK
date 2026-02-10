@@ -42,7 +42,7 @@ export default function ProtectedLayout() {
 
   return (
     <div className="min-h-screen">
-      <Header onBurgerClick={onToggleMobileMenu} onCloseMobile={onCloseMobileMenu} />
+      <Header onBurgerClick={onToggleMobileMenu} />
 
       <div className="flex">
         <Sidebar

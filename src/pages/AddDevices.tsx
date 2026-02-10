@@ -76,7 +76,7 @@ export default function AddDevice() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
         {error && (
           <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg">
@@ -88,6 +88,7 @@ export default function AddDevice() {
           <div className="grid md:grid-cols-2 gap-0">
             <div className="p-8 border-r border-gray-100">
               <h2 className="text-xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+                <span className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-700 font-bold">1</span>
                 Основные данные
               </h2>
 

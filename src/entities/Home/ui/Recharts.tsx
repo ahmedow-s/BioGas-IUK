@@ -35,7 +35,7 @@ export default function RechartsCharts() {
   return (
     <div className="grid grid-cols-1     lg:grid-cols-2 gap-6">
       <div className="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
-        <h3 className="w-[500px] h-[53px] border-b border-gray-200 text-[24px] font-semibold text-gray-800 mb-4">
+        <h3 className="max-w-[500px] min-h-[53px] border-b border-gray-200 text-[24px] font-semibold text-gray-800 mb-4">
           График выработки биогаза
         </h3>
 
@@ -84,7 +84,7 @@ export default function RechartsCharts() {
       </div>
 
       <div className="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
-        <h3 className="w-[500px] h-[53px] border-b border-gray-200 text-[24px] font-semibold text-gray-800 mb-4">
+        <h3 className="max-w-[500px] min-h-[53px] border-b border-gray-200 text-[24px] font-semibold text-gray-800 mb-4">
           График выработки биогаза
         </h3>
 

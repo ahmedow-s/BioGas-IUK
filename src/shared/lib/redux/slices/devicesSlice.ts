@@ -7,6 +7,7 @@ export interface Device {
   location: string;
   lastSignal: string;
   deviceStatus: 'Активен' | 'В сети' | 'Ожидание' | 'Ошибка';
+  category: 'all' | 'sensors';
 }
 
 export interface DevicesState {
@@ -18,16 +19,16 @@ export interface DevicesState {
 
 const initialState: DevicesState = {
   list: [
-    { id: 'BIOGAS.KG01', type: 'Реактор', status: 'Ожидание', location: 'Реакторный цех №1', lastSignal: '2 минуты назад', deviceStatus: 'Ожидание' },
-    { id: 'BIOGAS.KG02', type: 'Насос', status: 'Активен', location: 'Склад ГСМ', lastSignal: '1 час назад', deviceStatus: 'Активен' },
-    { id: 'BIOGAS.KG03', type: 'Газгольдер', status: 'В сети', location: 'Склад ГСМ', lastSignal: 'В сети', deviceStatus: 'Активен' },
-    { id: 'BIOGAS.KG04', type: 'Датчик pH', status: 'Активен', location: 'Склад ГСМ', lastSignal: '38 минут назад', deviceStatus: 'Активен' },
-    { id: 'BIOGAS.KG05', type: 'Датчик давления', status: 'Активен', location: 'Реакторный цех №1', lastSignal: '5 минут назад', deviceStatus: 'Активен' },
-    { id: 'BIOGAS.KG06', type: 'Датчик температуры', status: 'Ожидание', location: 'Склад опилок', lastSignal: '1 час назад', deviceStatus: 'Ожидание' },
-    { id: 'BIOGAS.KG07', type: 'Датчик pH', status: 'Активен', location: 'Склад ГСМ', lastSignal: '38 минут назад', deviceStatus: 'Активен' },
-    { id: 'BIOGAS.KG08', type: 'Датчик давления', status: 'Активен', location: 'Реакторный цех №1', lastSignal: '5 минут назад', deviceStatus: 'Активен' },
-    { id: 'BIOGAS.KG09', type: 'Датчик температуры', status: 'Ожидание', location: 'Склад опилок', lastSignal: '1 час назад', deviceStatus: 'Ожидание' },
-    { id: 'BIOGAS.KG010', type: 'Газгольдер', status: 'В сети', location: 'Склад ГСМ', lastSignal: 'В сети', deviceStatus: 'Активен' },
+    { id: 'BIOGAS.KG01', type: 'Реактор', status: 'Ожидание', location: 'Реакторный цех №1', lastSignal: '2 минуты назад', deviceStatus: 'Ожидание', category: 'all' },
+    { id: 'BIOGAS.KG02', type: 'Насос', status: 'Активен', location: 'Склад ГСМ', lastSignal: '1 час назад', deviceStatus: 'Активен', category: 'all' },
+    { id: 'BIOGAS.KG03', type: 'Газгольдер', status: 'В сети', location: 'Склад ГСМ', lastSignal: 'В сети', deviceStatus: 'Активен', category: 'all' },
+    { id: 'BIOGAS.KG04', type: 'Датчик pH', status: 'Активен', location: 'Склад ГСМ', lastSignal: '38 минут назад', deviceStatus: 'Активен', category: 'sensors' },
+    { id: 'BIOGAS.KG05', type: 'Датчик давления', status: 'Активен', location: 'Реакторный цех №1', lastSignal: '5 минут назад', deviceStatus: 'Активен', category: 'sensors' },
+    { id: 'BIOGAS.KG06', type: 'Датчик температуры', status: 'Ожидание', location: 'Склад опилок', lastSignal: '1 час назад', deviceStatus: 'Ожидание', category: 'sensors' },
+    { id: 'BIOGAS.KG07', type: 'Датчик pH', status: 'Активен', location: 'Склад ГСМ', lastSignal: '38 минут назад', deviceStatus: 'Активен', category: 'sensors' },
+    { id: 'BIOGAS.KG08', type: 'Датчик давления', status: 'Активен', location: 'Реакторный цех №1', lastSignal: '5 минут назад', deviceStatus: 'Активен', category: 'sensors' },
+    { id: 'BIOGAS.KG09', type: 'Датчик температуры', status: 'Ожидание', location: 'Склад опилок', lastSignal: '1 час назад', deviceStatus: 'Ожидание', category: 'sensors' },
+    { id: 'BIOGAS.KG010', type: 'Газгольдер', status: 'В сети', location: 'Склад ГСМ', lastSignal: 'В сети', deviceStatus: 'Активен', category: 'all' },
   ],
   filter: 'all',
   loading: false,

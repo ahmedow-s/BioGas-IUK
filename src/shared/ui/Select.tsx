@@ -1,6 +1,6 @@
 // src/shared/ui/SearchableSelect.tsx
 import { useState, useRef, useEffect } from 'react';
-import { Search, ChevronDown } from 'lucide-react';
+import {ChevronDown } from 'lucide-react';
 
 interface Option {
   value: string;
@@ -16,7 +16,7 @@ interface SearchableSelectProps {
   placeholder?: string;
 }
 
-export default function SearchableSelect({
+export default function Select({
   options,
   value,
   onChange,
@@ -45,7 +45,7 @@ export default function SearchableSelect({
     <div className="relative" ref={ref}>
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg flex items-center justify-between cursor-pointer hover:border-green-400 transition ${className}`}
+        className={`w-full px-4 py-2.5 bg-white border border-gray-300 rounded-lg flex items-center z-5 justify-between cursor-pointer hover:border-green-400 transition ${className}`}
       >
         <div className="flex items-center gap-2">
           {selected?.icon}
@@ -57,23 +57,7 @@ export default function SearchableSelect({
       </div>
 
       {isOpen && (
-        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-xl max-h-60 overflow-hidden">
-          {/* Поиск */}
-          <div className="p-2 border-b">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <input
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Поиск..."
-                className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-green-500 text-sm"
-                onClick={(e) => e.stopPropagation()}
-              />
-            </div>
-          </div>
-
-          {/* Список */}
+        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-xl max-h-60 overflow-hidden">      
           <div className="max-h-48 overflow-y-auto">
             {filtered.length === 0 ? (
               <div className="px-4 py-3 text-gray-500 text-sm text-center">
