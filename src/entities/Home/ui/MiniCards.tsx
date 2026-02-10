@@ -25,6 +25,7 @@ export default function MiniCards() {
               {card.change && card.changeType === 'down' && (
                 <div className="text-[12px]">↓ {card.change} от нормы</div>
               )}
+              {}
               {card.goal && <div className="text-[12px]">{card.goal}</div>}
             </div>
           </div>
