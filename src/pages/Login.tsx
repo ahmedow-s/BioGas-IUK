@@ -2,24 +2,33 @@ import { useState } from "react"
 import Button from "../shared/ui/Button"
 import Input from "../shared/ui/Input"
 import PasswordInput from "../shared/ui/PasswordInput"
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from 'react-redux'
+import { setToken } from '../shared/lib/redux/slices/authSlice'
+import type { AppDispatch } from '../shared/lib/redux/store'
 
 type AuthType = "farmer" | "admin"
 
 export default function Login() {
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch<AppDispatch>()
+
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [authType, setAuthType] = useState<AuthType>("farmer")
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log({ email, password, authType })
+    const mockToken = 'mock-token-12345'
+    dispatch(setToken({ token: mockToken, user: { name: email || 'Demo User', role: authType === 'admin' ? 'Администратор' : 'Фермер' } }))
+    navigate("/")
   }
 
   return (
     <div className="w-full min-h-screen bg-[#ffffff] flex items-center justify-center font-inter px-4">
       <div className="w-full max-w-[1392px] bg-[#F9F9F9] flex flex-col lg:flex-row items-center justify-center p-6 lg:p-10 gap-10">
         
-        {/* Left */}
         <div className="w-full max-w-[450px] flex flex-col gap-10 text-center">
           
           <div className="text-[#1F2937] flex flex-col gap-4 items-center">
@@ -29,7 +38,6 @@ export default function Login() {
             </h2>
           </div>
 
-          {/* Auth type */}
           <div className="flex justify-center gap-4">
             {(["farmer", "admin"] as AuthType[]).map(type => (
               <Button
@@ -48,7 +56,6 @@ export default function Login() {
             ))}
           </div>
 
-          {/* Form */}
           <form
             onSubmit={handleSubmit}
             className="flex flex-col gap-4 w-full"
@@ -69,6 +76,7 @@ export default function Login() {
 
             <Button
               type="submit"
+              onClick={()=>{}}
               className="bg-[#1E7F43] text-white text-[20px] w-full h-[45px] rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:bg-[#1A6B3A]"
             >
               Войти
@@ -76,7 +84,6 @@ export default function Login() {
           </form>
         </div>
 
-        {/* Right image */}
         <div className="hidden lg:block w-full max-w-[802px]">
           <img
             src="/img/loginPage.jpg"

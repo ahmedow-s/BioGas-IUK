@@ -1,29 +1,52 @@
-import { useState } from 'react'
-// import { Navigate } from 'react-router';
+// ProtectedLayout.tsx
+import { useState } from 'react';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { Sidebar } from '../../widgets/Sidebar';
 import { Header } from '../../widgets/Header';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../shared/lib/redux/store';
+import BreadCrumbs from '../../shared/ui/BreadCrumbs';
 
-export default function ProtectedLayout({children}: {children: React.ReactNode}) {
-//    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+export default function ProtectedLayout() {
+  const token = useSelector((state: RootState) => state.auth.token);
+  const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
-  function onOpenMobileMenu() {
+
+  const isHomePage = location.pathname === '/' || location.pathname === '/home';
+
+  const onOpenMobileMenu = () => {
     setMobileOpen(true);
     document.body.style.overflow = 'hidden';
-    
-  }
-  function onCloseMobileMenu() {
+  };
+
+  const onCloseMobileMenu = () => {
     setMobileOpen(false);
     document.body.style.overflow = 'auto';
-  }
+  };
+
+  if (!token) return <Navigate to="/login" replace />;
+
   return (
-    // token ?
-    <div className=''>
-        <Header />
-      <div className="relative flex w-full h-full mx-auto   ">
-        <Sidebar mobileOpen={mobileOpen} onClose={() => onCloseMobileMenu()} onToggle={() => onOpenMobileMenu()} />
-        <main className="flex-1 max-lg:p-4 ">{children}</main>
+    <div className="min-h-screen ">
+      <Header onBurgerClick={onOpenMobileMenu} />
+
+      <div className="flex">
+        <Sidebar
+          mobileOpen={mobileOpen}
+          onClose={onCloseMobileMenu}
+          onToggle={onOpenMobileMenu}
+        />
+
+        <main className="flex-1 p-6 pb-12 overflow-y-auto h-[calc(100vh-87px)]">
+          {!isHomePage && (
+            <div className="mb-6">
+              <BreadCrumbs />
+            </div>
+          )}
+
+          <Outlet />
+        </main>
       </div>
     </div>
-    // :<Navigate to="/login" replace={true} />
-  )
+  );
 }
