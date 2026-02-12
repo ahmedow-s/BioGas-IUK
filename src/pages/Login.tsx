@@ -25,13 +25,8 @@ export default function Login() {
     e.preventDefault();
     setError("");
 
-    console.log('Login attempt:', { email, password });
-    console.log('Email check:', email === "biogas@gmail.com");
-    console.log('Password check:', password === "254668kg");
-
     if (email === "biogas@gmail.com" && password === "254668kg") {
       const mockToken = "mock-token-12345";
-      console.log('Auth success! Dispatching token...');
       
       dispatch(
         setToken({
@@ -43,7 +38,6 @@ export default function Login() {
         })
       );
 
-      console.log('Navigating to home...');
       navigate("/");
       return;
     }

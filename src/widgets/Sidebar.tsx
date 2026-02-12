@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { Bell, ChartNoAxesCombined, LayoutDashboard, LogOut, Settings, Sprout, TowerControl } from 'lucide-react'
+import { Bell, ChartNoAxesCombined, LayoutDashboard, LogOut, PanelTop, Settings, Sprout } from 'lucide-react'
 import Button from '../shared/ui/Button'
 import { clearToken } from '../shared/lib/redux/slices/authSlice'
 import { useDispatch } from 'react-redux'
@@ -11,6 +11,7 @@ interface SidebarProps {
     onToggle?: () => void
 }
 
+
 export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
     const [role, setRole] = useState<string | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
@@ -18,6 +19,7 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    
     useEffect(() => {
         // simulate fetching role
         const t = setTimeout(() => {
@@ -29,7 +31,7 @@ export function Sidebar({ mobileOpen, onClose }: SidebarProps) {
 
     const menuItemsAdmin = [
         { id: '/', label: 'Главный экран', icon: LayoutDashboard },
-        { id: '/devices', label: 'Управление устройствами', icon: TowerControl },
+        { id: '/devices', label: 'Управление устройствами', icon: PanelTop },
         { id: '/monitoring', label: 'IoT Мониторинг', icon: ChartNoAxesCombined },
         { id: '/environmental-effect', label: 'Экологический эффект', icon: Sprout },
         { id: '/notifications', label: 'Уведомления', icon: Bell },

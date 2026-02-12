@@ -40,7 +40,6 @@ export default function AddDevice() {
 
     dispatch(setSubmitting(true));
 
-    console.log('Сохраняем устройство:', form);
 
     setTimeout(() => {
       dispatch(setSubmitting(false));

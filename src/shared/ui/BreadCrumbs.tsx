@@ -8,7 +8,7 @@ const labelMap: Record<string, string> = {
     '/notifications': 'Уведомления',
     '/settings': 'Настройки',
     '/profile': 'Профиль',
-    '/add-devices':'Добавление устройства'
+    '/add-device':'Добавление устройства'
 }
 
 export default function BreadCrumbs() {

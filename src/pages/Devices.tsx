@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MoreVertical, Eye, Download, Trash2 } from 'lucide-react';
 import Button from '../shared/ui/Button';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,23 @@ export default function Devices() {
   const dispatch = useDispatch();
   const { list: devices, filter } = useSelector((state: RootState) => state.devices);
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+  const menuRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+
+  useEffect(() => {
+  const handleClickOutside = (event: MouseEvent) => {
+    if (openMenuId === null) return;
+
+    const currentMenu = menuRefs.current[openMenuId];
+    if (currentMenu && !currentMenu.contains(event.target as Node)) {
+      setOpenMenuId(null);
+    }
+  };
+
+  document.addEventListener('mousedown', handleClickOutside);
+  return () => document.removeEventListener('mousedown', handleClickOutside);
+}, [openMenuId]); 
+ 
 
   const handleAddDevice = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -28,7 +45,18 @@ export default function Devices() {
   };
 
   const handleDownloadDevice = (e: React.MouseEvent) => {
+    function downloadJSON(data: object, filename: string) {
+      const jsonStr = JSON.stringify(data, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
     e.preventDefault();
+    downloadJSON(devices, 'devices.json');
   };
 
   const getStatusColor = (status: string) => {
@@ -54,7 +82,7 @@ export default function Devices() {
               e.preventDefault();
               dispatch(setFilter('all'));
             }}
-            className={`text-lg font-semibold ${filter === 'all' ? 'text-gray-800' : 'text-gray-500'}`}
+            className={`md:text-lg  font-semibold ${filter === 'all' ? 'text-gray-800' : 'text-gray-500'}`}
           >
             Все устройства
           </Button>
@@ -63,7 +91,7 @@ export default function Devices() {
               e.preventDefault();
               dispatch(setFilter('sensors'));
             }}
-            className={`text-lg font-semibold ${filter === 'sensors' ? 'text-gray-800' : 'text-gray-500'}`}
+            className={`md:text-lg font-semibold ${filter === 'sensors' ? 'text-gray-800' : 'text-gray-500'}`}
           >
             Датчики
           </Button>
@@ -104,7 +132,7 @@ export default function Devices() {
                     </span>
                   </td>
                   <td className="px-4 py-4 text-right relative">
-                    <button
+                    <Button
                       onClick={(e) => {
                         e.preventDefault();
                         setOpenMenuId(isOpen ? null : device.id);
@@ -112,28 +140,30 @@ export default function Devices() {
                       className="p-1 rounded-full hover:bg-gray-200 transition-colors"
                     >
                       <MoreVertical size={18} className="text-gray-500" />
-                    </button>
+                    </Button>
 
                     {isOpen && (
-                      <div className="absolute right-4 top-8 z-10 w-44 bg-white rounded-lg shadow-xl border border-gray-200 py-1 text-sm">
-                        <button
+                      <div className="absolute right-4 top-8 z-10 w-44 bg-white rounded-lg shadow-xl border border-gray-200 py-1 text-sm"
+                        ref={(el) => { menuRefs.current[device.id] = el; }}
+                      >
+                        <Button
                           onClick={handleViewDevice}
                           className="w-full px-4 py-2.5 text-left hover:bg-gray-50 flex items-center gap-2"
                         >
                           <Eye size={16} /> Посмотреть
-                        </button>
-                        <button
+                        </Button>
+                        <Button
                           onClick={handleDownloadDevice}
                           className="w-full px-4 py-2.5 text-left hover:bg-gray-50 flex items-center gap-2"
                         >
                           <Download size={16} /> Скачать
-                        </button>
-                        <button
-                          onClick={(e) => handleDeleteDevice(e, device.id)}
+                        </Button>
+                        <Button
+                          onClick={(e) => handleDeleteDevice(e, device.id) }
                           className="w-full px-4 py-2.5 text-left hover:bg-gray-50 flex items-center gap-2 text-red-600"
                         >
                           <Trash2 size={16} /> Удалить
-                        </button>
+                        </Button>
                       </div>
                     )}
                   </td>

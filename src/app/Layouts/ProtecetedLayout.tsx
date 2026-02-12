@@ -9,14 +9,12 @@ import BreadCrumbs from '../../shared/ui/BreadCrumbs';
 export default function ProtectedLayout() {
   const token = useSelector((state: RootState) => state.auth.token);
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
-  const user = useSelector((state: RootState) => state.auth.user);
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const isHomePage =
     location.pathname === '/' || location.pathname === '/home';
 
-  console.log('ProtectedLayout:', { token, isAuthenticated, user });
 
   if (!token || !isAuthenticated) {
     return <Navigate to="/login" replace />;
